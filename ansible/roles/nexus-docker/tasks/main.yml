@@ -1,0 +1,22 @@
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+  tags: [nexus-docker]
+
+- name: Define host_ip
+  set_fact:
+    host_ip: "{{ __host_ip }}"
+  tags: [nexus-docker]
+
+
+- name: nexus is running
+  docker_container:
+    name: nexus
+    image: sonatype/nexus:2.14.4-03
+    ports: 
+    - "8081:8081"
+    privileged: yes
+    env:
+      JAVA_OPTS: "  -Duser.timezone=Asia/Taipei"
+    volumes:
+      -  /vagrant/nexus-data:/sonatype-work
+  tags: [nexus-docker]
