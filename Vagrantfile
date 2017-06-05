@@ -10,13 +10,13 @@ Vagrant.configure(2) do |config|
   config.vm.define "nexus-server" do |d|
     d.vm.box ="ubuntu/trusty64"
     d.vm.hostname = "nexus-server"
-    d.vm.network "private_network", ip: "192.168.87.87"
-#    d.vm.network "public_network", bridge: "eno4", ip: "192.168.57.89", auto_config: "false", netmask: "255.255.255.0" , gateway: "192.168.57.1"
+#    d.vm.network "private_network", ip: "192.168.87.87"
+    d.vm.network "public_network", bridge: "eno4", ip: "192.168.57.90", auto_config: "false", netmask: "255.255.255.0" , gateway: "192.168.57.1"
     d.vm.provision :shell, path: "scripts/bootstrap4Ubuntu_ansible.sh"
-    d.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/gitlab.yml -c local"
+    d.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/nexus.yml -c local"
     d.vm.provider "virtualbox" do |v|
       v.cpus = 2
-      v.memory = 2048
+      v.memory = 4096
     end
   end   
   if Vagrant.has_plugin?("vagrant-cachier")
