@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
     d.vm.box ="ubuntu/trusty64"
     d.vm.hostname = "nexus-server"
 #    d.vm.network "private_network", ip: "192.168.87.87"
-    d.vm.network "public_network", bridge: "eno4", ip: "192.168.57.90", auto_config: "false", netmask: "255.255.255.0" , gateway: "192.168.57.1"
+    d.vm.network "public_network", bridge: "eno4", ip: "192.168.57.100", auto_config: "false", netmask: "255.255.255.0" , gateway: "192.168.57.1"
     default_router = "192.168.57.1"
     d.vm.provision :shell, inline: "ip route delete default 2>&1 >/dev/null || true; ip route add default via #{default_router}"
     d.vm.provision :shell, path: "scripts/bootstrap4Ubuntu_ansible.sh"
